@@ -13,11 +13,11 @@ int main(int argc, char *argv[])
     int num1, num2, result;
 
     /* Check if the program was passed two arguments */
-    if (argc != 3)
-    {
-        printf("Error\n");
-        return (1);
-    }
+	if (argc != 3)
+	{
+		printf("Error\n");
+		return (1);
+	}
 
     /* Convert the arguments to integers and multiply them */
     num1 = atoi(argv[1]);
