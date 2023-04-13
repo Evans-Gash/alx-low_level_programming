@@ -1,106 +1,97 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
-
+#include <ctype.h>
 
 /**
- * is_digit - Checks if a string is composed only of digits
- * @s: The string to check
- *
- * Return: 1 if s is composed only of digits, 0 otherwise
+ * mul - a program that multiplies two positive numbers.
+ * @num1: first number, second argument
+ * @l1: length of string 1
+ * @l2: length of stirng 0
+ * @num2: second number, third argument
+ * 
+ * Description
+ * - num1 and num2 will be passed in base 10
+ * - Print the result, followed by a new line
  */
-int is_digit(char *s)
+void *mul(char *n1, int l1, char *n2, int l2)
 {
-        while (*s)
-        {
-                if (*s < '0' || *s > '9')
-                        return (0);
-                s++;
-        }
-        return (1);
+	int i, multiply;
+	char *sol;
+	printf("%s, %s", n1, n2);
+
+	(void) multiply;
+	sol = malloc(l1 + l2 + 1);
+	if (sol == NULL)
+		return (NULL);
+
+	for (i = 0; i < (l1 + l2 + 1); i++)
+		sol[i] = '0';
+
+	i = 0;
+	while (i < l1)
+	{
+		multiply = n1[i] * n2[i];
+
+	}
+
+	return (sol);
 }
 
 /**
- * _strlen - Computes the length of a string
- * @s: The string to compute the length of
+ * _isdigit - check for digit
+ * @argv: argument vector
  *
- * Return: The length of s
+ * Return: 0 when it is true and 1 if it is not
  */
-int _strlen(char *s)
+int _isdigit(char **argv)
 {
-        int len = 0;
+	int i, j, s;
 
-        while (*s++)
-                len++;
-
-        return (len);
+	s = 0;
+	for (i = 1; i < 3; i++)
+	{
+		for (j = 0; argv[i][j] != '\0'; j++)
+		{
+			printf("%s", argv[i]);
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+			{
+				printf("Error\n");
+				exit(98);
+			}
+		}
+	}
+	return (s);
 }
 
 /**
- * mul - Multiplies two positive numbers
- * @num1: The first number
- * @num2: The second number
+ * main - run program
+ * @argc: argument count
+ * @argv: argument vector
  *
- * Return: A pointer to a string containing the product of num1 and num2
- */
-char *mul(char *num1, char *num2)
-{
-        int len1, len2, i, j, carry, n1, n2, sum;
-        char *res;
-
-        len1 = _strlen(num1);
-        len2 = _strlen(num2);
-        res = malloc(sizeof(char) * (len1 + len2));
-        if (res == NULL)
-                return (NULL);
-        for (i = 0; i < len1 + len2; i++)
-                res[i] = '0';
-        for (i = len1 - 1; i >= 0; i--)
-        {
-                carry = 0;
-                n1 = num1[i] - '0';
-                for (j = len2 - 1; j >= 0; j--)
-                {
-                        n2 = num2[j] - '0';
-                        sum = (res[i + j + 1] - '0') + (n1 * n2) + carry;
-                        carry = sum / 10;
-                        res[i + j + 1] = (sum % 10) + '0';
-                }
-                if (carry)
-                        res[i + j + 1] = (carry % 10) + '0';
-        }
-        for (i = 0; res[i] == '0' && res[i + 1]; i++)
-                ;
-        return (res + i);
-}
-
-/**
- * main - Entry point
- * @argc: The number of command-line arguments
- * @argv: An array containing the command-line arguments
+ * - If the number of arguments is incorrect, print Error, followed by a new
+ *   line, and exit with a status of 98
+ * - num1 and num2 should only be composed of digits.
+ *   If not, print Error, followed by a new line, and exit with a status of 98
  *
- * Return: 0 on success, 98 on failure
+ * Return: 0 success
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-        char *num1, *num2, *res;
+	int l1, l2;
+	printf("%d", argc);
 
-        if (argc != 3)
-        {
-                printf("Error\n");
-                return (98);
-        }
-        num1 = argv[1];
-        num2 = argv[2];
-        if (!is_digit(num1) || !is_digit(num2))
-        {
-                printf("Error\n");
-                return (98);
-        }
-        res = mul(num1, num2);
-        if (res == NULL)
-                return (98);
-        printf("%s\n", res);
-        free(res);
-        return (0);
+	l1 = strlen(argv[1]);
+	l2 = strlen(argv[2]);
+
+	_isdigit(argv);
+
+	(void) argc;
+	/* if (!(argc == 3))
+	{
+		printf("Error\n");
+		exit(98);
+	} */
+
+	mul(argv[1], l1, argv[2], l2);
+
+	return (0);
 }
