@@ -1,97 +1,200 @@
 #include "main.h"
-#include <ctype.h>
+#include <stdlib.h>
+		
+#include <stdio.h>
+		
 
+		
+#define ERR_MSG "Error"
+		
+
+		
 /**
- * mul - a program that multiplies two positive numbers.
- * @num1: first number, second argument
- * @l1: length of string 1
- * @l2: length of stirng 0
- * @num2: second number, third argument
- * 
- * Description
- * - num1 and num2 will be passed in base 10
- * - Print the result, followed by a new line
+		
+ * is_digit - checks if a string contains a non-digit char
+		
+ * @s: string to be evaluated
+		
+ *
+		
+ * Return: 0 if a non-digit is found, 1 otherwise
+		
  */
-void *mul(char *n1, int l1, char *n2, int l2)
+		
+int is_digit(char *s)
+		
 {
-	int i, multiply;
-	char *sol;
-	printf("%s, %s", n1, n2);
+		
+	int i = 0;
+		
 
-	(void) multiply;
-	sol = malloc(l1 + l2 + 1);
-	if (sol == NULL)
-		return (NULL);
-
-	for (i = 0; i < (l1 + l2 + 1); i++)
-		sol[i] = '0';
-
-	i = 0;
-	while (i < l1)
+		
+	while (s[i])
+		
 	{
-		multiply = n1[i] * n2[i];
-
+		
+		if (s[i] < '0' || s[i] > '9')
+		
+			return (0);
+		
+		i++;
+		
 	}
-
-	return (sol);
+		
+	return (1);
+		
 }
+		
 
+		
 /**
- * _isdigit - check for digit
- * @argv: argument vector
+		
+ * _strlen - returns the length of a string
+		
+ * @s: string to evaluate
+		
  *
- * Return: 0 when it is true and 1 if it is not
+		
+ * Return: the length of the string
+		
  */
-int _isdigit(char **argv)
+		
+int _strlen(char *s)
+		
 {
-	int i, j, s;
+		
+	int i = 0;
+		
 
-	s = 0;
-	for (i = 1; i < 3; i++)
+		
+	while (s[i] != '\0')
+		
 	{
-		for (j = 0; argv[i][j] != '\0'; j++)
-		{
-			printf("%s", argv[i]);
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-			{
-				printf("Error\n");
-				exit(98);
-			}
-		}
+		
+		i++;
+		
 	}
-	return (s);
+		
+	return (i);
+		
 }
+		
 
+		
 /**
- * main - run program
- * @argc: argument count
- * @argv: argument vector
- *
- * - If the number of arguments is incorrect, print Error, followed by a new
- *   line, and exit with a status of 98
- * - num1 and num2 should only be composed of digits.
- *   If not, print Error, followed by a new line, and exit with a status of 98
- *
- * Return: 0 success
+		
+ * errors - handles errors for main
+		
  */
+		
+void errors(void)
+		
+{
+		
+	printf("Error\n");
+		
+	exit(98);
+		
+}
+		
+
+		
+/**
+		
+ * main - multiplies two positive numbers
+		
+ * @argc: number of arguments
+		
+ * @argv: array of arguments
+		
+ *
+		
+ * Return: always 0 (Success)
+		
+ */
+		
 int main(int argc, char *argv[])
+		
 {
-	int l1, l2;
-	printf("%d", argc);
+		
+	char *s1, *s2;
+		
+	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
+		
 
-	l1 = strlen(argv[1]);
-	l2 = strlen(argv[2]);
-
-	_isdigit(argv);
-
-	(void) argc;
-	/* if (!(argc == 3))
+		
+	s1 = argv[1], s2 = argv[2];
+		
+	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+		
+		errors();
+		
+	len1 = _strlen(s1);
+		
+	len2 = _strlen(s2);
+		
+	len = len1 + len2 + 1;
+		
+	result = malloc(sizeof(int) * len);
+		
+	if (!result)
+		
+		return (1);
+		
+	for (i = 0; i <= len1 + len2; i++)
+		
+		result[i] = 0;
+		
+	for (len1 = len1 - 1; len1 >= 0; len1--)
+		
 	{
-		printf("Error\n");
-		exit(98);
-	} */
-
-	mul(argv[1], l1, argv[2], l2);
-
+		
+		digit1 = s1[len1] - '0';
+		
+		carry = 0;
+		
+		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+		
+		{
+		
+			digit2 = s2[len2] - '0';
+		
+			carry += result[len1 + len2 + 1] + (digit1 * digit2);
+		
+			result[len1 + len2 + 1] = carry % 10;
+		
+			carry /= 10;
+		
+		}
+		
+		if (carry > 0)
+		
+			result[len1 + len2 + 1] += carry;
+		
+	}
+		
+	for (i = 0; i < len - 1; i++)
+		
+	{
+		
+		if (result[i])
+		
+			a = 1;
+		
+		if (a)
+		
+			_putchar(result[i] + '0');
+		
+	}
+		
+	if (!a)
+		
+		_putchar('0');
+		
+	_putchar('\n');
+		
+	free(result);
+		
 	return (0);
+		
 }
