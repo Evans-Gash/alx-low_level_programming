@@ -1,5 +1,5 @@
-#include <stdlib.h>   /* for malloc */
-#include <stdio.h>    /* for fprintf and exit */
+#include <stdlib.h>   
+#include <stdio.h>
 
 /**
  * malloc_checked - Allocates memory using malloc
