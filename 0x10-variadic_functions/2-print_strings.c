@@ -1,4 +1,6 @@
 #include "variadic_functions.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 /**
  * print_strings - Prints strings, followed by a new line.
@@ -30,8 +32,7 @@ void print_strings(const char *separator, const unsigned int n, ...)
 			printf("%s", separator);
 	}
 
-		printf("\n");
+	printf("\n");
 
-		va_end(strings);
+	va_end(strings);
 }
-
