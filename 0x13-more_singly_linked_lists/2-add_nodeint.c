@@ -3,24 +3,26 @@
 #include <stdio.h>
 #include "lists.h"
 
-#include "lists.h"
-
 /**
- * count_list - this line will return the number of elements in a linked list
- * @lst: linked list of type node_t to traverse
+ * add_nodeint - it wll new a node at the beginning of a listint_t list.
+ *@head: Pointer to the first in the the list.
+ * @n: result to be added to the new node.
  *
- * Return: number of nodes
+ * Return: Pointer to the new element, or NULL if it failed.
  */
-
-size_t count_list(const node_t *lst)
+listint_t *add_nodeint(listint_t **head, const int n)
 {
-	size_t count = 0;
+	listint_t *new_node;
 
-	while (lst)
+	new_node = malloc(sizeof(listint_t));
+	if (new_node == NULL)
 	{
-		count++;
-		lst = lst->next;
+	return (NULL);
 	}
 
-	return (count);
+	new_node->n = n;
+	new_node->next = *head;
+	*head = new_node;
+
+	return (new_node);
 }
