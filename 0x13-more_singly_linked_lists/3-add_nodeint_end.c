@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "list"
+#include "lists.h"
 
 /**
  * add_nodeint - it wll new a node at the beginning of a listint_t list.
@@ -12,17 +12,26 @@
  */
 listint_t *add_nodeint(listint_t **head, const int n)
 {
-	listint_t *new_node;
+	listint_t *new;
+	listint_t *temp = *head;
 
-	new_n = malloc(sizeof(listint_t));
-	if (new == NULL)
-	{
+	new = malloc(sizeof(listint_t));
+	if (!new)
 		return (NULL);
+
+	new->n = n;
+	new->next = NULL;
+
+	if (*head == NULL)
+	{
+		*head = new;
+		return (new);
 	}
 
-	new_n->n = n;
-	new_n->next = *head;
-	*head = new_n;
+	while (temp->next)
+		temp = temp->next;
 
-		return (new_n);
+	temp->next = new;
+
+	return (new);
 }
