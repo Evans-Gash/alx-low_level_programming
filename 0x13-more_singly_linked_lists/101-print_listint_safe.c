@@ -12,21 +12,21 @@
  */
 size_t print_listint_safe(const listint_t *head)
 {
-    const listint_t *latest;
-    size_t count = 0;
+	const listint_t *latest;
+	size_t count = 0;
 
-    while (head != NULL)
-    {
-        printf("[%p] %d\n", (void *)head, head->n);
-        count++;
-        latest = head;
-        head = head->next;
-        if (latest <= head)
-        {
-            printf("-> [%p] %d\n", (void *)head, head->n);
-            exit(98);
-        }
-    }
+	while (head != NULL)
+	{
+	printf("[%p] %d\n", (void *)head, head->n);
+	count++;
+	latest = head;
+	head = head->next;
+	if (latest <= head)
+	{
+		printf("-> [%p] %d\n", (void *)head, head->n);
+		exit(98);
+	}
+	}
 
-    return (count);
+	return (count);
 }
