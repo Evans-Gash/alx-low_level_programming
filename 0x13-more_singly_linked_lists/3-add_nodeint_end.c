@@ -4,13 +4,13 @@
 #include "lists.h"
 
 /**
- * add_nodeint - it wll new a node at the beginning of a listint_t list.
- *@head: Pointer to the first element in the the list.
- * @n: result to be added to the new node.
+ * add_nodeinteger_end - will add a node at the end of a linked list
+ * @head: pointer to the first Item in the list
+ * @n: processed data to insert in the new element
  *
- * Return: Pointer to the new element, or NULL if it failed.
+ * Return: pointer to the new node, or NULL if it doesn't work/fails
  */
-listint_t *add_nodeint(listint_t **head, const int n)
+listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *new;
 	listint_t *temp = *head;
