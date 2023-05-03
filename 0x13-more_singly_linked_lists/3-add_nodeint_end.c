@@ -5,33 +5,33 @@
 
 /**
  * add_nodeint - it wll new a node at the beginning of a listint_t list.
- *@head: Pointer to the first in the the list.
+ *@head: Pointer to the first element in the the list.
  * @n: result to be added to the new node.
  *
  * Return: Pointer to the new element, or NULL if it failed.
  */
-listint_t *add_nodeint(listint_t **head, const int n)
+listint_t *add_nodeint(listint_t **head, const int data)
 {
-	listint_t *new;
-	listint_t *temp = *head;
+listint_t *new_node;
+listint_t *temp_node = *head;
 
-	new = malloc(sizeof(listint_t));
-	if (!new)
-		return (NULL);
+new_node = malloc(sizeof(listint_t));
+if (!new_node)
+return (NULL);
 
-	new->n = n;
-	new->next = NULL;
+new_node->n = data;
+new_node->next = NULL;
 
-	if (*head == NULL)
-	{
-		*head = new;
-		return (new);
-	}
+if (*head == NULL)
+{
+*head = new_node;
+return (new_node);
+}
 
-	while (temp->next)
-		temp = temp->next;
+while (temp_node->next)
+temp_node = temp_node->next;
 
-	temp->next = new;
+temp_node->next = new_node;
 
-	return (new);
+return (new_node);
 }
