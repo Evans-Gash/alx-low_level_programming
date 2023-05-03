@@ -4,15 +4,11 @@
 #include "lists.h"
 
 /**
- * add_nodeinteger_end - will add a,
- * node at the end of a linked list
- * @head: pointer to the first Item,
- * in the list
- * @n: processed data to insert in the, 
- * new element
+ * add_nodeinteger_end - will add a node at the end of a linked list
+ * @head: pointer to the first Item in the list
+ * @n: processed data to insert in the new element
  *
- * Return: pointer to the new node, 
- * or NULL if it doesn't work/fails
+ * Return: pointer to the new node or NULL if it doesn't work/fails
  */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
