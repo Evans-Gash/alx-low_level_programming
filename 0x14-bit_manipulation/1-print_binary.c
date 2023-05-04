@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * print_binary(unsigned long int e) - the binary correspondent of a decimal,
+ * print_binary - the binary correspondent of a decimal,
  * digit will be printed
  * @e: the digit to be printed in the binary
  */

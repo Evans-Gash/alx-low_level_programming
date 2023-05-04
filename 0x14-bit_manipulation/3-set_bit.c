@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * set_bit(unsigned long int *n, unsigned int index)- will place the bit,
+ * set_bit - will place the bit,
  * at a particular index to 1
  * @x: pointer to digit to place the bit at
  * @index: index of the bit to set to 1

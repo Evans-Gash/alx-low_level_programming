@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * get_bit(unsigned long int e, unsigned int index) - will return the worth,
+ * get_bit - will return the worth,
  * of a bit at a particular index
  * @e: digit to locate the bit
  * @index: the index of the bit to locate
