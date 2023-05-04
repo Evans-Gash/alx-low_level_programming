@@ -10,13 +10,11 @@
  * Return: 1(works), -1(doesn't work)
  */
 
-int set_bit(unsigned long int x, unsigned int index)
-
+int set_bit(unsigned long int *x, unsigned int index)
 {
 	if (index > 63)
 		return (-1);
 
 	*x = ((1UL << index) | *x);
 	return (1);
-
 }
