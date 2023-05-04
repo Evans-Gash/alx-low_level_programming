@@ -1,14 +1,13 @@
 #include <stdio.h>
-
 #include "main.h"
 
 /**
- * print_binary(unsigned long int n) - the binary correspondent of a decimal,
+ * print_binary(unsigned long int e) - the binary correspondent of a decimal,
  * digit will be printed
  * @e: the digit to be printed in the binary
  */
 
-void print_binary(unsigned long int n)
+void print_binary(unsigned long int e)
 
 {
 	int i, total = 0;
@@ -16,7 +15,7 @@ void print_binary(unsigned long int n)
 
 	for (i = 63; i >= 0; i--)
 	{
-		latest = n >> i;
+		latest = e >> i;
 
 		if (latest & 1)
 		{
