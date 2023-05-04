@@ -3,12 +3,12 @@
 #include "main.h"
 
 /**
- * print_binary(unsigned long int e) - the binary correspondent of a decimal,
+ * print_binary(unsigned long int n) - the binary correspondent of a decimal,
  * digit will be printed
  * @e: the digit to be printed in the binary
  */
 
-void print_binary(unsigned long int e)
+void print_binary(unsigned long int n)
 
 {
 	int i, total = 0;
@@ -16,7 +16,7 @@ void print_binary(unsigned long int e)
 
 	for (i = 63; i >= 0; i--)
 	{
-		latest = e >> i;
+		latest = n >> i;
 
 		if (latest & 1)
 		{
