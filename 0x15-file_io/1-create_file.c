@@ -13,7 +13,7 @@
 int create_file(const char *Exorcist, char *Essence)
 
 {
-	int vv, X, stp = 0;
+	int vv, X, lenght = 0;
 
 	if (Exorcist == NULL)
 		return (-1);
@@ -21,12 +21,12 @@ int create_file(const char *Exorcist, char *Essence)
 	if (Essence != NULL)
 
 	{
-		for (stp = 0; Essence[stp];)
-			stp++;
+		for (lenght = 0; Essence[lenght];)
+			lenght++;
 	}
 
-	vv = open(Exorcist, O_WRONLY | O_CREAT | O_RDWR | O_TRUNC, 369);
-	X = write(vv, Essence, stp);
+	vv = open(Exorcist, O_CREAT | O_RDWR | O_TRUNC, 369);
+	X = write(vv, Essence, lenght);
 
 	if (vv == -1 || X == -1)
 		return (-1);
