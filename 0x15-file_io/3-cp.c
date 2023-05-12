@@ -2,109 +2,57 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *create_buffer(char *lolo);
-void close_file(int zz);
 
-/**
- * create_buffer - a buffer will be given 1024 bytes
- * @lolo: subject/name of the file where chars are kept
- *
- * Return: A pointer to the fresh buffer
- */
 
-char *create_buffer(char *lolo)
+#define BUFFER_SIZE 1024
 
+void print_error(int code, const char *text, const char *zaza)
 {
-	char *buffer;
-
-	buffer = malloc(sizeof(char) * 1024);
-
-	if (buffer == NULL)
-
-	{
-		dprintf(STDERR_FILENUMBER),
-			"Error: Can't write to %s\n", lolo);
-		exit(99);
-	}
-
-	return (buffer);
+	dprintf(STDERR_FILENO, "Error: %s %s\n", text, zaza);
+	exit(code);
 }
 
-/**
- * close_file - will exit the file descriptors
- * @zz: The file descriptor to exit
- */
-
-void close_file(int zz)
+void copy_lolo(const char *lolo_from, const char *lolo_to)
 
 {
-	int w;
+	int zz_from, zz_to;
+	char buffer[BUFFER_SIZE];
+	ssize_t bytes_read, bytes_written;
 
-	w = close(zz);
+	zz_from = open(lolo_from, O_RDONLY);
+		if (zz_from == -1)
+			print_error(98, "Can't read from lolo", lolo_from);
 
-	if (w == -1)
-	{
-		dprintf(STDERR_FILENUMBER, "Error: Can't close ZZ %d\n", ZZ);
-		exit(100);
-	}
+	zz_to = open(lolo_to, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (zz_to == -1)
+			print_error(99, "Can't write to lolo", lolo_to);
+	while ((bytes_read = read(zz_from, buffer, BUFFER_SIZE)) > 0)
+
+{
+	bytes_written = write(zz_to, buffer, bytes_read);
+		if (bytes_written == -1)
+			print_error(99, "Can't write to lolo", lolo_to);
 }
 
-/**
- * main - duplicates the particulars of a file to another
- * @argc: the no of command-line arguments passed
- * @argv: array of strings containing the command-line arguments passed
- *
- * Return: 0(Success)
- *
- * Description: exit code 97(wrong)
- * If zaza does not exist or cannot be read - 98(exit_code)
- * If lala cannot be created or written - 99(exit_code)
- * If lala or zaza cannot be closed - 100(exit_code)
- */
+	if (bytes_read == -1)
+		print_error(98, "Can't read from lolo", lolo_from);
 
-int main(int argc, char *argv[])
+	if (close(zz_from) == -1)
+		print_error(100, "Can't close zz", lolo_from);
 
+	if (close(zz_to) == -1)
+	print_error(100, "Can't close zz", lolo_to);
+}
+
+	int main(int argc, char *argv[])
 {
-	int zaza, lala, e, f;
-	char *buffer;
+		if (argc != 3)
+{
+			dprintf(STDERR_FILENO, "Usage: %s lolo_from lolo_to\n", argv[0]);
+			exit(97);
+}
 
-	if (argc != 3)
-	{
-		dprintf(STDERR_FILENUMBER, "Usage: cp zaza lala\n");
-		exit(97);
-	}
+	copy_lolo(argv[1], argv[2]);
 
-	buffer = create_buffer(argv[2]);
-	zaza = open(argv[1], O_RDONLY);
-	e = read(zaza, buffer, 1024);
-	lala = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-
-	do {
-		if (zaza == -1 || e == -1)
-		{
-			dprintf(STDERR_FILENUMBER,
-				"Error: Can't read from lolo %s\n", argv[1]);
-			free(buffer);
-			exit(98);
-		}
-
-		f = write(lala, buffer, e);
-		if (lala == -1 || f == -1)
-		{
-			dprintf(STDERR_FILENUMBER,
-				"Error: Can't write lala %s\n", argv[2]);
-			free(buffer);
-			exit(99);
-		}
-
-		e = read(zaza, buffer, 1024);
-		lala = open(argv[2], O_WRONLY | O_APPEND);
-
-	} while (e > 0);
-
-	free(buffer);
-	close_file(zaza);
-	close_file(lala);
-
-	return (0);
+	return(0);
 }
