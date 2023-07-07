@@ -1,10 +1,10 @@
 #include "hash_tables.h"
 
 /**
- * set_pair - Allocates memory for a key/value pair in the hash table.
- * @node: A pointer to the hash table array node.
- * @key: The key, a non-empty string.
- * @value: The value associated with the key, can be an empty string.
+ * set_pair - mallocs a key/value pair to the hash table.
+ * @node: a pointer to the hash table array node.
+ * @key: the key, a string that cannot be empty.
+ * @value: the value associated with the key, can be an empty string.
  *
  * Return: 1 on success, 0 on error.
  */
@@ -13,30 +13,22 @@ int set_pair(hash_node_t **node, const char *key, const char *value)
 	*node = malloc(sizeof(hash_node_t));
 	if (*node == NULL)
 		return (0);
-
-	(*node)->key = strdup(key);
+	(*node)->key = malloc(strlen(key) + 1);
 	if ((*node)->key == NULL)
-	{
-		free(*node);
 		return (0);
-	}
-
-	(*node)->value = strdup(value);
+	(*node)->value = malloc(strlen(value) + 1);
 	if ((*node)->value == NULL)
-	{
-		free((*node)->key);
-		free(*node);
 		return (0);
-	}
-
+	strcpy((*node)->key, key);
+	strcpy((*node)->value, value);
 	return (1);
 }
 
 /**
- * hash_table_set - Adds an element to the hash table.
- * @ht: A pointer to the hash table.
- * @key: The key, a non-empty string.
- * @value: The value associated with the key, can be an empty string.
+ * hash_table_set - adds an element to the hash table.
+ * @ht: a pointer to the hash table array.
+ * @key: the key, a string that cannot be empty.
+ * @value: the value associated with the key, can be an empty string.
  *
  * Return: 1 on success, 0 on error.
  */
@@ -45,12 +37,10 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	unsigned long int index;
 	hash_node_t *node;
 
-	if (key == NULL || ht == NULL)
+	if (key == NULL)
 		return (0);
-
 	index = key_index((unsigned char *)key, ht->size);
 	node = ht->array[index];
-
 	if (node == NULL)
 	{
 		if (set_pair(&node, key, value) == 0)
@@ -58,25 +48,21 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		node->next = NULL;
 		return (1);
 	}
-
 	while (node != NULL)
 	{
 		if (strcmp(node->key, key) == 0)
 		{
 			if (strcmp(node->value, value) == 0)
 				return (1);
-
 			free(node->value);
-			node->value = strdup(value);
-
+			node->value = malloc(strlen(value) + 1);
 			if (node->value == NULL)
 				return (0);
-
+			strcpy(node->value, value);
 			return (1);
 		}
 		node = node->next;
 	}
-
 	if (node == NULL)
 	{
 		if (set_pair(&node, key, value) == 0)
@@ -85,6 +71,5 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		ht->array[index] = node;
 		return (1);
 	}
-
 	return (0);
 }
